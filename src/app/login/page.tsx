@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function LoginPage() {
@@ -37,44 +38,104 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="max-w-md mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">
-        Login
-      </h1>
+    <main className="min-h-screen flex items-center justify-center px-6">
 
-      <form
-        onSubmit={handleLogin}
-        className="space-y-4"
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl" />
+
+      <div
+        className="
+          relative
+          w-full
+          max-w-md
+          backdrop-blur-xl
+          bg-white/5
+          border
+          border-white/10
+          rounded-3xl
+          p-8
+          shadow-2xl
+        "
       >
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-          className="w-full border p-3 rounded"
-        />
+        <h1 className="text-4xl font-bold text-center mb-2">
+          Welcome Back
+        </h1>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) =>
-            setPassword(
-              e.target.value
-            )
-          }
-          className="w-full border p-3 rounded"
-        />
+        <p className="text-zinc-400 text-center mb-8">
+          Login to continue
+        </p>
 
-        <button
-          type="submit"
-          className="bg-green-600 px-4 py-3 rounded"
+        <form
+          onSubmit={handleLogin}
+          className="space-y-4"
         >
-          Login
-        </button>
-      </form>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            className="
+              w-full
+              p-4
+              rounded-xl
+              bg-white/5
+              border
+              border-white/10
+              outline-none
+              focus:border-blue-500
+            "
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              p-4
+              rounded-xl
+              bg-white/5
+              border
+              border-white/10
+              outline-none
+              focus:border-blue-500
+            "
+          />
+
+          <button
+            type="submit"
+            className="
+              w-full
+              py-4
+              rounded-xl
+              bg-gradient-to-r
+              from-blue-600
+              to-cyan-600
+              hover:opacity-90
+              transition
+              font-semibold
+            "
+          >
+            Login
+          </button>
+        </form>
+
+        <p className="text-center text-zinc-400 mt-6">
+          Don't have an account?{" "}
+          <Link
+            href="/signup"
+            className="text-blue-400 hover:underline"
+          >
+            Register
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

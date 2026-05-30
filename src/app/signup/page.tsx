@@ -1,10 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function SignupPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] =
+    useState("");
+
+  const [email, setEmail] =
+    useState("");
+
   const [password, setPassword] =
     useState("");
 
@@ -37,54 +42,123 @@ export default function SignupPage() {
   };
 
   return (
-    <main className="max-w-md mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-6">
-        Sign Up
-      </h1>
+    <main className="min-h-screen flex items-center justify-center px-6">
 
-      <form
-        onSubmit={handleSignup}
-        className="space-y-4"
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl" />
+
+      <div
+        className="
+          relative
+          w-full
+          max-w-md
+          backdrop-blur-xl
+          bg-white/5
+          border
+          border-white/10
+          rounded-3xl
+          p-8
+          shadow-2xl
+        "
       >
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) =>
-            setName(e.target.value)
-          }
-          className="w-full border p-3 rounded"
-        />
+        <h1 className="text-4xl font-bold text-center mb-2">
+          Create Account
+        </h1>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) =>
-            setEmail(e.target.value)
-          }
-          className="w-full border p-3 rounded"
-        />
+        <p className="text-zinc-400 text-center mb-8">
+          Join College Compass today
+        </p>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) =>
-            setPassword(
-              e.target.value
-            )
-          }
-          className="w-full border p-3 rounded"
-        />
-
-        <button
-          type="submit"
-          className="bg-blue-600 px-4 py-3 rounded"
+        <form
+          onSubmit={handleSignup}
+          className="space-y-4"
         >
-          Sign Up
-        </button>
-      </form>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
+            className="
+              w-full
+              p-4
+              rounded-xl
+              bg-white/5
+              border
+              border-white/10
+              outline-none
+              focus:border-blue-500
+            "
+          />
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+            className="
+              w-full
+              p-4
+              rounded-xl
+              bg-white/5
+              border
+              border-white/10
+              outline-none
+              focus:border-blue-500
+            "
+          />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(
+                e.target.value
+              )
+            }
+            className="
+              w-full
+              p-4
+              rounded-xl
+              bg-white/5
+              border
+              border-white/10
+              outline-none
+              focus:border-blue-500
+            "
+          />
+
+          <button
+            type="submit"
+            className="
+              w-full
+              py-4
+              rounded-xl
+              bg-gradient-to-r
+              from-blue-600
+              to-cyan-600
+              hover:opacity-90
+              transition
+              font-semibold
+            "
+          >
+            Create Account
+          </button>
+        </form>
+
+        <p className="text-center text-zinc-400 mt-6">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="text-blue-400 hover:underline"
+          >
+            Login
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

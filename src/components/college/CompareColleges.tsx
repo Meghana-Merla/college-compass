@@ -10,8 +10,11 @@ interface Props {
 export default function CompareColleges({
   colleges,
 }: Props) {
-  const [college1Id, setCollege1Id] = useState("");
-  const [college2Id, setCollege2Id] = useState("");
+  const [college1Id, setCollege1Id] =
+    useState("");
+
+  const [college2Id, setCollege2Id] =
+    useState("");
 
   const college1 = colleges.find(
     (college) => college.id === college1Id
@@ -23,16 +26,22 @@ export default function CompareColleges({
 
   return (
     <div>
-      <div className="grid md:grid-cols-2 gap-4 mb-8">
-        {/* College 1 */}
+      <div className="grid md:grid-cols-2 gap-6 mb-10">
         <select
           value={college1Id}
           onChange={(e) =>
             setCollege1Id(e.target.value)
           }
-          className="border p-3 rounded-lg bg-zinc-900 text-white w-full"
+          className="
+            w-full
+            p-4
+            rounded-2xl
+            bg-white/5
+            border border-white/10
+            backdrop-blur-lg
+          "
         >
-          <option value="" className="text-white">
+          <option value="">
             Select College 1
           </option>
 
@@ -40,22 +49,27 @@ export default function CompareColleges({
             <option
               key={college.id}
               value={college.id}
-              className="text-white"
             >
               {college.name}
             </option>
           ))}
         </select>
 
-        {/* College 2 */}
         <select
           value={college2Id}
           onChange={(e) =>
             setCollege2Id(e.target.value)
           }
-          className="border p-3 rounded-lg bg-zinc-900 text-white w-full"
+          className="
+            w-full
+            p-4
+            rounded-2xl
+            bg-white/5
+            border border-white/10
+            backdrop-blur-lg
+          "
         >
-          <option value="" className="text-white">
+          <option value="">
             Select College 2
           </option>
 
@@ -68,7 +82,6 @@ export default function CompareColleges({
               <option
                 key={college.id}
                 value={college.id}
-                className="text-white"
               >
                 {college.name}
               </option>
@@ -77,74 +90,60 @@ export default function CompareColleges({
       </div>
 
       {college1 && college2 && (
-        <div className="overflow-x-auto">
-          <table className="w-full border border-gray-700">
-            <tbody>
-              <tr className="border border-gray-700">
-                <td className="p-4 font-bold">
-                  Attribute
-                </td>
-                <td className="p-4 font-bold">
-                  {college1.name}
-                </td>
-                <td className="p-4 font-bold">
-                  {college2.name}
-                </td>
-              </tr>
+        <div className="grid lg:grid-cols-2 gap-8">
 
-              <tr className="border border-gray-700">
-                <td className="p-4">
-                  Location
-                </td>
-                <td className="p-4">
-                  {college1.location}
-                </td>
-                <td className="p-4">
-                  {college2.location}
-                </td>
-              </tr>
+          <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl p-8">
+            <h2 className="text-3xl font-bold mb-4">
+              {college1.name}
+            </h2>
 
-              <tr className="border border-gray-700">
-                <td className="p-4">
-                  Rating
-                </td>
-                <td className="p-4">
-                  {college1.rating}
-                </td>
-                <td className="p-4">
-                  {college2.rating}
-                </td>
-              </tr>
+            <div className="space-y-3">
+              <p>
+                📍 {college1.location}
+              </p>
 
-              <tr className="border border-gray-700">
-                <td className="p-4">
-                  Fees
-                </td>
-                <td className="p-4">
-                  ₹
-                  {college1.fees.toLocaleString()}
-                </td>
-                <td className="p-4">
-                  ₹
-                  {college2.fees.toLocaleString()}
-                </td>
-              </tr>
+              <p>
+                ⭐ {college1.rating}
+              </p>
 
-              <tr className="border border-gray-700">
-                <td className="p-4">
-                  Placements
-                </td>
-                <td className="p-4">
-                  ₹
-                  {college1.placements.toLocaleString()}
-                </td>
-                <td className="p-4">
-                  ₹
-                  {college2.placements.toLocaleString()}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              <p>
+                💰 ₹
+                {college1.fees.toLocaleString()}
+              </p>
+
+              <p>
+                📈 ₹
+                {college1.placements.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
+          <div className="backdrop-blur-lg bg-white/5 border border-white/10 rounded-3xl p-8">
+            <h2 className="text-3xl font-bold mb-4">
+              {college2.name}
+            </h2>
+
+            <div className="space-y-3">
+              <p>
+                📍 {college2.location}
+              </p>
+
+              <p>
+                ⭐ {college2.rating}
+              </p>
+
+              <p>
+                💰 ₹
+                {college2.fees.toLocaleString()}
+              </p>
+
+              <p>
+                📈 ₹
+                {college2.placements.toLocaleString()}
+              </p>
+            </div>
+          </div>
+
         </div>
       )}
     </div>

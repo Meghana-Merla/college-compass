@@ -6,19 +6,69 @@ export default async function Home() {
   const colleges = await prisma.college.findMany();
 
   return (
-    <main className="max-w-6xl mx-auto px-6 py-10">
-      <h1 className="text-4xl font-bold mb-8">
-        College Compass
-      </h1>
+    <main>
+      <section className="relative overflow-hidden py-16">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl" />
 
-      <Link
-        href="/compare"
-        className="inline-block mb-8 bg-blue-600 px-4 py-2 rounded-lg"
+        <div className="relative max-w-6xl mx-auto text-center px-6">
+          <h1 className="text-6xl font-bold mb-6">
+            Find Your Perfect College
+          </h1>
+
+          <p className="text-xl text-zinc-400 mb-6">
+            Compare colleges, explore placements,
+            fees, ratings and save your favorites.
+          </p>
+
+          <div className="flex justify-center gap-4">
+            <a
+              href="#colleges"
+              className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 transition"
+            >
+              Explore Colleges
+            </a>
+
+            <Link
+              href="/compare"
+              className="px-6 py-3 rounded-xl border border-white/20 hover:bg-white/10 transition"
+            >
+              Compare Colleges
+            </Link>
+          </div>
+
+          <div className="flex justify-center gap-12 mt-10 text-center">
+            <div>
+              <h3 className="text-3xl font-bold">20+</h3>
+              <p className="text-zinc-400">
+                Colleges
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold">95%</h3>
+              <p className="text-zinc-400">
+                Placement Data
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-3xl font-bold">
+                4.8★
+              </h3>
+              <p className="text-zinc-400">
+                Top Ratings
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="colleges"
+        className="max-w-6xl mx-auto px-6 pb-10"
       >
-        Compare Colleges
-      </Link>
-
-      <CollegeList colleges={colleges} />
+        <CollegeList colleges={colleges} />
+      </section>
     </main>
   );
 }
