@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import SaveCollegeButton from "@/components/college/SaveCollegeButton";
 
 interface Props {
   params: Promise<{
@@ -54,6 +55,10 @@ export default async function CollegeDetailPage({
           📈 Placements: ₹
           {college.placements.toLocaleString()}
         </p>
+
+        <SaveCollegeButton
+          collegeId={college.id}
+        />
       </div>
     </main>
   );
