@@ -84,6 +84,42 @@ A full-stack college discovery and comparison platform built with Next.js, TypeS
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](./screenshots/home.png)
+
+### Search Colleges
+
+![Search Colleges](./screenshots/search.png)
+
+### Compare Colleges
+
+![Compare Colleges](./screenshots/compare.png)
+
+### Comparison Result
+
+![Comparison Result](./screenshots/compare-working.png)
+
+### College Details
+
+![College Details](./screenshots/college-detail.png)
+
+### Login Page
+
+![Login Page](./screenshots/login.png)
+
+### Register Page
+
+![Register Page](./screenshots/register.png)
+
+### Saved Colleges
+
+![Saved Colleges](./screenshots/saved-colleges.png)
+
+---
+
 ## ⚙️ Installation
 
 Clone the repository:
