@@ -1,18 +1,8 @@
-import CollegeCard from "@/components/college/CollegeCard";
-
-async function getColleges() {
-  const res = await fetch(
-    "http://localhost:3000/api/colleges",
-    {
-      cache: "no-store",
-    }
-  );
-
-  return res.json();
-}
+import CollegeList from "@/components/college/CollegeList";
+import { prisma } from "@/lib/prisma";
 
 export default async function Home() {
-  const colleges = await getColleges();
+  const colleges = await prisma.college.findMany();
 
   return (
     <main className="max-w-6xl mx-auto px-6 py-10">
@@ -20,14 +10,7 @@ export default async function Home() {
         College Compass
       </h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {colleges.map((college: any) => (
-          <CollegeCard
-            key={college.id}
-            college={college}
-          />
-        ))}
-      </div>
+      <CollegeList colleges={colleges} />
     </main>
   );
 }
