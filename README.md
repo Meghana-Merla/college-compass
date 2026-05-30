@@ -1,36 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# College Compass 🎓
 
-## Getting Started
+A full-stack college discovery and comparison platform built with Next.js, TypeScript, Prisma ORM, PostgreSQL, and JWT Authentication.
 
-First, run the development server:
+## 🚀 Live Demo
+
+**Live URL:** https://college-compass-kappa.vercel.app
+
+---
+
+## ✨ Features
+
+### College Discovery
+- Browse colleges with detailed information
+- Search colleges by name
+- View college details
+- Compare colleges side by side
+
+### Authentication
+- User Signup
+- User Login
+- JWT-based Authentication
+- Secure password hashing using bcryptjs
+
+### Saved Colleges
+- Save favorite colleges
+- View saved colleges
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+- Next.js 
+- React
+- TypeScript
+- Tailwind CSS
+
+### Backend
+- Next.js API Routes
+- Prisma ORM
+
+### Database
+- PostgreSQL (Neon)
+
+### Authentication
+- JWT
+- bcryptjs
+
+### Deployment
+- Vercel
+
+---
+
+## 📂 Database Schema
+
+### User
+- id
+- name
+- email
+- password
+
+### College
+- id
+- name
+- location
+- fees
+- rating
+- placements
+
+### Course
+- id
+- name
+- duration
+
+### Review
+- id
+- rating
+- comment
+
+### SavedCollege
+- userId
+- collegeId
+
+---
+
+## ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Meghana-Merla/college-compass.git
+cd college-compass
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+DATABASE_URL=your_database_url
+JWT_SECRET=your_secret_key
+```
+
+Generate Prisma Client:
+
+```bash
+npx prisma generate
+```
+
+Run migrations:
+
+```bash
+npx prisma migrate deploy
+```
+
+Start development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📡 API Endpoints
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Authentication
 
-## Learn More
+```http
+POST /api/auth/signup
+POST /api/auth/login
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Colleges
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```http
+GET /api/colleges
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Saved Colleges
 
-## Deploy on Vercel
+```http
+POST /api/saved-colleges
+GET /api/saved-colleges
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🎯 Future Improvements
+
+- Advanced Filters
+- College Reviews System
+- User Profile Page
+- Better UI/UX
+- Mobile Optimization
+- Toast Notifications
+
+---
+
+## 👨‍💻 Author
+
+**Meghana Merla**
