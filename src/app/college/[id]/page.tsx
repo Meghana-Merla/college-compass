@@ -14,12 +14,11 @@ export default async function CollegeDetailPage({
 }: Props) {
   const { id } = await params;
 
-  const college =
-    await prisma.college.findUnique({
-      where: {
-        id,
-      },
-    });
+  const college = await prisma.college.findUnique({
+    where: {
+      id,
+    },
+  });
 
   if (!college) {
     notFound();
@@ -27,7 +26,6 @@ export default async function CollegeDetailPage({
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
-
       <Link
         href="/"
         className="inline-block mb-8 text-blue-400 hover:underline"
@@ -57,7 +55,7 @@ export default async function CollegeDetailPage({
             </p>
 
             <p className="text-xl font-semibold">
-              📍 {college.location}
+              📍 {college.city}, {college.state}
             </p>
           </div>
 
@@ -67,7 +65,7 @@ export default async function CollegeDetailPage({
             </p>
 
             <p className="text-xl font-semibold">
-              ⭐ {college.rating}
+              ⭐ {college.rating ?? "N/A"}
             </p>
           </div>
 
@@ -77,29 +75,50 @@ export default async function CollegeDetailPage({
             </p>
 
             <p className="text-xl font-semibold">
-              💰 ₹
-              {college.fees.toLocaleString()}
+              💰{" "}
+              {college.fees
+                ? `₹${college.fees.toLocaleString()}`
+                : "N/A"}
             </p>
           </div>
 
           <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
             <p className="text-zinc-400 mb-2">
-              Placement Package
+              Average Package
             </p>
 
             <p className="text-xl font-semibold">
-              📈 ₹
-              {college.placements.toLocaleString()}
+              📈{" "}
+              {college.averagePackage
+                ? `${college.averagePackage} LPA`
+                : "N/A"}
+            </p>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
+            <p className="text-zinc-400 mb-2">
+              Type
+            </p>
+
+            <p className="text-xl font-semibold">
+              🏛️ {college.type}
+            </p>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
+            <p className="text-zinc-400 mb-2">
+              NIRF Rank
+            </p>
+
+            <p className="text-xl font-semibold">
+              🏆 {college.nirfRank ?? "N/A"}
             </p>
           </div>
 
         </div>
 
-        <SaveCollegeButton
-          collegeId={college.id}
-        />
+        <SaveCollegeButton collegeId={college.id} />
       </div>
-
     </main>
   );
 }

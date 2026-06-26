@@ -38,7 +38,7 @@ export default async function Home() {
 
           <div className="flex justify-center gap-12 mt-10 text-center">
             <div>
-              <h3 className="text-3xl font-bold">20+</h3>
+              <h3 className="text-3xl font-bold">1000+</h3>
               <p className="text-zinc-400">
                 Colleges
               </p>

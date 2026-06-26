@@ -1,8 +1,20 @@
 export interface College {
   id: string;
+
   name: string;
-  location: string;
-  fees: number;
-  rating: number;
-  placements: number;
+
+  city: string | null;
+  state: string | null;
+  type: string | null;
+
+  fees: number | null;
+  rating: number | null;
+  nirfRank: number | null;
+  averagePackage: number | null;
+
+  website: string | null;
+  image: string | null;
+  description: string | null;
+
+  createdAt: Date;
 }

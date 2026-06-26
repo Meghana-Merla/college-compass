@@ -33,13 +33,19 @@ export default function CompareColleges({
             setCollege1Id(e.target.value)
           }
           className="
-            w-full
-            p-4
-            rounded-2xl
-            bg-white/5
-            border border-white/10
-            backdrop-blur-lg
-          "
+              w-full
+              p-4
+              rounded-xl
+              bg-zinc-900
+              text-white
+              border
+              border-zinc-700
+              outline-none
+              focus:border-blue-500
+              focus:ring-2
+              focus:ring-blue-500/20
+              transition-all
+            "
         >
           <option value="">
             Select College 1
@@ -61,13 +67,19 @@ export default function CompareColleges({
             setCollege2Id(e.target.value)
           }
           className="
-            w-full
-            p-4
-            rounded-2xl
-            bg-white/5
-            border border-white/10
-            backdrop-blur-lg
-          "
+              w-full
+              p-4
+              rounded-xl
+              bg-zinc-900
+              text-white
+              border
+              border-zinc-700
+              outline-none
+              focus:border-blue-500
+              focus:ring-2
+              focus:ring-blue-500/20
+              transition-all
+            "
         >
           <option value="">
             Select College 2
@@ -99,21 +111,34 @@ export default function CompareColleges({
 
             <div className="space-y-3">
               <p>
-                📍 {college1.location}
+                📍 {college1.city}, {college1.state}
               </p>
 
               <p>
-                ⭐ {college1.rating}
+                🏛️ {college1.type}
               </p>
 
               <p>
-                💰 ₹
-                {college1.fees.toLocaleString()}
+                ⭐ {college1.rating ?? "N/A"}
               </p>
 
               <p>
-                📈 ₹
-                {college1.placements.toLocaleString()}
+                🏆 NIRF Rank:{" "}
+                {college1.nirfRank ?? "N/A"}
+              </p>
+
+              <p>
+                💰{" "}
+                {college1.fees
+                  ? `₹${college1.fees.toLocaleString()}`
+                  : "N/A"}
+              </p>
+
+              <p>
+                📈{" "}
+                {college1.averagePackage
+                  ? `${college1.averagePackage} LPA`
+                  : "N/A"}
               </p>
             </div>
           </div>
@@ -125,21 +150,34 @@ export default function CompareColleges({
 
             <div className="space-y-3">
               <p>
-                📍 {college2.location}
+                📍 {college2.city}, {college2.state}
               </p>
 
               <p>
-                ⭐ {college2.rating}
+                🏛️ {college2.type}
               </p>
 
               <p>
-                💰 ₹
-                {college2.fees.toLocaleString()}
+                ⭐ {college2.rating ?? "N/A"}
               </p>
 
               <p>
-                📈 ₹
-                {college2.placements.toLocaleString()}
+                🏆 NIRF Rank:{" "}
+                {college2.nirfRank ?? "N/A"}
+              </p>
+
+              <p>
+                💰{" "}
+                {college2.fees
+                  ? `₹${college2.fees.toLocaleString()}`
+                  : "N/A"}
+              </p>
+
+              <p>
+                📈{" "}
+                {college2.averagePackage
+                  ? `${college2.averagePackage} LPA`
+                  : "N/A"}
               </p>
             </div>
           </div>

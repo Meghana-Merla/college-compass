@@ -82,16 +82,18 @@ export default async function SavedCollegesPage() {
                 </h2>
 
                 <p className="text-zinc-400 mb-4">
-                  📍 {item.college.location}
+                  📍 {item.college.city}, {item.college.state}
                 </p>
 
                 <p className="mb-2">
-                  ⭐ {item.college.rating}
+                  ⭐ {item.college.rating ?? "N/A"}
                 </p>
 
                 <p>
-                  💰 ₹
-                  {item.college.fees.toLocaleString()}
+                  💰{" "}
+                  {item.college.fees
+                    ? `₹${item.college.fees.toLocaleString()}`
+                    : "N/A"}
                 </p>
               </div>
             </Link>
