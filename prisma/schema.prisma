@@ -19,18 +19,27 @@ model User {
 }
 
 model College {
-  id          String   @id @default(cuid())
-  name        String
-  location    String
-  fees        Int
-  rating      Float
-  placements  Int
+  id                String   @id @default(cuid())
 
-  courses      Course[]
-  reviews      Review[]
-  savedByUsers SavedCollege[]
+  name              String
+  city              String
+  state             String
+  type              String
+  fees              Int?
 
-  createdAt DateTime @default(now())
+  rating            Float?
+  nirfRank          Int?
+  averagePackage    Float?
+
+  website           String?
+  image             String?
+  description       String?
+
+  createdAt         DateTime @default(now())
+
+  courses           Course[]
+  reviews           Review[]
+  savedByUsers      SavedCollege[]
 }
 
 model Course {
