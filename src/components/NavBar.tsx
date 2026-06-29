@@ -12,8 +12,7 @@ export default function Navbar() {
       method: "POST",
     });
 
-    router.push("/login");
-    router.refresh();
+    window.location.href = "/login";
   };
 
   const [authenticated, setAuthenticated] = useState(false);
