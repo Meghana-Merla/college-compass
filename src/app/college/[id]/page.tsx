@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SaveCollegeButton from "@/components/college/SaveCollegeButton";
-
+import AddReviewForm from "@/components/college/AddReviewForm";
 interface Props {
   params: Promise<{
     id: string;
@@ -18,11 +18,35 @@ export default async function CollegeDetailPage({
     where: {
       id,
     },
+    include: {
+      reviews: {
+        include: {
+          user: {
+            select: {
+              name: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+    },
   });
 
   if (!college) {
     notFound();
   }
+
+  const totalReviews = college.reviews.length;
+
+  const averageUserRating =
+    totalReviews > 0
+      ? college.reviews.reduce(
+          (sum, review) => sum + review.rating,
+          0
+        ) / totalReviews
+      : null;
 
   return (
     <main className="max-w-5xl mx-auto px-6 py-10">
@@ -61,11 +85,30 @@ export default async function CollegeDetailPage({
 
           <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
             <p className="text-zinc-400 mb-2">
-              Rating
+              Official Rating
             </p>
 
             <p className="text-xl font-semibold">
-              ⭐ {college.rating ?? "N/A"}
+              ⭐ {college.rating?.toFixed(1) ?? "N/A"} / 10
+            </p>
+          </div>
+
+          <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
+            <p className="text-zinc-400 mb-2">
+              User Rating
+            </p>
+
+            <p className="text-xl font-semibold">
+              ⭐{" "}
+              {averageUserRating
+                ? averageUserRating.toFixed(1)
+                : "No Ratings Yet"}{" "}
+              {averageUserRating && "/ 10"}
+            </p>
+
+            <p className="text-sm text-zinc-400 mt-2">
+              {totalReviews} Review
+              {totalReviews !== 1 && "s"}
             </p>
           </div>
 
@@ -118,6 +161,49 @@ export default async function CollegeDetailPage({
         </div>
 
         <SaveCollegeButton collegeId={college.id} />
+        <AddReviewForm collegeId={college.id} />
+
+        <div className="mt-10">
+          <h2 className="text-3xl font-bold mb-6">
+            Student Reviews
+          </h2>
+
+          {college.reviews.length === 0 ? (
+            <p className="text-zinc-400">
+              No reviews yet.
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {college.reviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="
+                    bg-white/5
+                    border
+                    border-white/10
+                    rounded-2xl
+                    p-5
+                  "
+                >
+                  <div className="flex justify-between items-center mb-2">
+                    <h3 className="font-semibold text-lg">
+                      {review.user.name}
+                    </h3>
+
+                    <span className="text-yellow-400">
+                      ⭐ {review.rating.toFixed(1)}/10
+                    </span>
+                  </div>
+
+                  <p className="text-zinc-300">
+                    {review.comment}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
       </div>
     </main>
   );
