@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [email, setEmail] =
     useState("");
 
@@ -32,9 +34,12 @@ export default function LoginPage() {
 
     const data = await res.json();
 
-    alert(
-      data.message || data.error
-    );
+    if (res.ok) {
+      router.push("/");
+      router.refresh();
+    } else {
+      alert(data.error);
+    }
   };
 
   return (

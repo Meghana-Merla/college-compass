@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignupPage() {
+  const router = useRouter();
   const [name, setName] =
     useState("");
 
@@ -36,9 +38,12 @@ export default function SignupPage() {
 
     const data = await res.json();
 
-    alert(
-      data.message || data.error
-    );
+    if (res.ok) {
+      alert("Registration successful!");
+      router.push("/login");
+    } else {
+      alert(data.error);
+    }
   };
 
   return (
