@@ -1,20 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+interface Review {
+  id: string;
+  rating: number;
+  comment: string;
+}
 
 interface Props {
   collegeId: string;
+  existingReview: Review | null;
 }
 
 export default function AddReviewForm({
   collegeId,
+  existingReview,
 }: Props) {
   const router = useRouter();
-
-  const [rating, setRating] = useState(8);
-  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(
+    existingReview?.rating ?? 8
+  );
+  const [comment, setComment] = useState(
+    existingReview?.comment ?? ""
+  );
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+  if (existingReview) {
+    setRating(existingReview.rating);
+    setComment(existingReview.comment);
+  } else {
+    
+  }
+}, [existingReview]);
 
   async function handleSubmit(
     e: React.FormEvent<HTMLFormElement>
@@ -43,7 +63,11 @@ export default function AddReviewForm({
         return;
       }
 
-      alert("Review added successfully!");
+      alert(
+        existingReview
+          ? "Review updated successfully!"
+          : "Review added successfully!"
+      );
 
       setRating(5);
       setComment("");
@@ -131,7 +155,9 @@ export default function AddReviewForm({
         "
       >
         {loading
-          ? "Submitting..."
+          ? "Saving..."
+          : existingReview
+          ? "Update Review"
           : "Submit Review"}
       </button>
     </form>

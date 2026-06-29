@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SaveCollegeButton from "@/components/college/SaveCollegeButton";
 import AddReviewForm from "@/components/college/AddReviewForm";
+import { cookies } from "next/headers";
+import { verifyToken } from "@/lib/jwt";
 interface Props {
   params: Promise<{
     id: string;
@@ -23,6 +25,7 @@ export default async function CollegeDetailPage({
         include: {
           user: {
             select: {
+              id: true,
               name: true,
             },
           },
@@ -37,6 +40,26 @@ export default async function CollegeDetailPage({
   if (!college) {
     notFound();
   }
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
+
+  let currentUserId: string | null = null;
+
+  if (token) {
+    const payload = verifyToken(token) as {
+      userId: string;
+    } | null;
+
+    if (payload) {
+      currentUserId = payload.userId;
+    }
+  }
+
+  const existingReview =
+    college.reviews.find(
+      (review) => review.user.id === currentUserId
+    ) ?? null;
 
   const totalReviews = college.reviews.length;
 
@@ -161,7 +184,10 @@ export default async function CollegeDetailPage({
         </div>
 
         <SaveCollegeButton collegeId={college.id} />
-        <AddReviewForm collegeId={college.id} />
+        <AddReviewForm
+          collegeId={college.id}
+          existingReview={existingReview}
+        />
 
         <div className="mt-10">
           <h2 className="text-3xl font-bold mb-6">
