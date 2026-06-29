@@ -37,14 +37,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const review = await prisma.review.create({
-      data: {
-        rating: Number(rating),
-        comment,
+    const existingReview = await prisma.review.findFirst({
+      where: {
         collegeId,
         userId: payload.userId,
       },
     });
+
+    let review;
+
+    if (existingReview) {
+      review = await prisma.review.update({
+        where: {
+          id: existingReview.id,
+        },
+        data: {
+          rating: Number(rating),
+          comment,
+        },
+      });
+    } else {
+      review = await prisma.review.create({
+        data: {
+          rating: Number(rating),
+          comment,
+          collegeId,
+          userId: payload.userId,
+        },
+      });
+    }
 
     return NextResponse.json(review, {
       status: 201,
