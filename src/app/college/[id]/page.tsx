@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import SaveCollegeButton from "@/components/college/SaveCollegeButton";
 import AddReviewForm from "@/components/college/AddReviewForm";
+import DeleteReviewButton from "@/components/college/DeleteReviewButton";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/jwt";
 interface Props {
@@ -221,9 +222,13 @@ export default async function CollegeDetailPage({
                     </span>
                   </div>
 
-                  <p className="text-zinc-300">
+                  <p className="text-zinc-300 mb-3">
                     {review.comment}
                   </p>
+
+                  {review.user.id === currentUserId && (
+                    <DeleteReviewButton reviewId={review.id} />
+                  )}
                 </div>
               ))}
             </div>
