@@ -42,6 +42,16 @@ export default async function CollegeDetailPage({
     notFound();
   }
 
+  const similarColleges = await prisma.college.findMany({
+    where: {
+      id: {
+        not: college.id,
+      },
+      type: college.type,
+    },
+    take: 3,
+  });
+
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -279,6 +289,59 @@ export default async function CollegeDetailPage({
                     <DeleteReviewButton reviewId={review.id} />
                   )}
                 </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold mb-6">
+            Similar Colleges
+          </h2>
+
+          {similarColleges.length === 0 ? (
+            <p className="text-zinc-400">
+              No similar colleges found.
+            </p>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-6">
+              {similarColleges.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`/college/${item.id}`}
+                  className="
+                    rounded-2xl
+                    border
+                    border-white/10
+                    bg-white/5
+                    p-5
+                    hover:bg-white/10
+                    transition
+                  "
+                >
+                  <h3 className="text-xl font-semibold mb-3">
+                    {item.name}
+                  </h3>
+
+                  <p className="text-zinc-400">
+                    📍 {item.city}, {item.state}
+                  </p>
+
+                  <p className="mt-2">
+                    ⭐ {item.rating ?? "N/A"}
+                  </p>
+
+                  <p>
+                    💰{" "}
+                    {item.fees
+                      ? `₹${item.fees.toLocaleString()}`
+                      : "N/A"}
+                  </p>
+
+                  <p className="mt-4 text-blue-400 font-medium">
+                    View Details →
+                  </p>
+                </Link>
               ))}
             </div>
           )}
