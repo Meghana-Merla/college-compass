@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import Features from "@/components/home/Features";
 import Categories from "@/components/home/Categories";
+import Stats from "@/components/home/Stats";
 
 export default async function Home() {
   const colleges = await prisma.college.findMany();
@@ -92,8 +93,9 @@ export default async function Home() {
           </div>
 
         </div>
-
+      
       </section>
+      <Stats/>
       <Features />
       <Categories/>
 

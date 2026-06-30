@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function AboutPage() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-16">
@@ -89,6 +91,25 @@ export default function AboutPage() {
           ))}
 
         </div>
+
+      </div>
+
+      <div className="mt-20 rounded-3xl border border-white/10 bg-gradient-to-r from-blue-600/10 to-cyan-600/10 p-10 text-center">
+
+        <h2 className="text-4xl font-bold">
+          Ready to Find Your Dream College?
+        </h2>
+
+        <p className="mt-4 text-zinc-400">
+          Compare colleges, explore rankings and get AI-powered insights.
+        </p>
+
+        <Link
+          href="/"
+          className="inline-block mt-8 rounded-xl bg-blue-600 px-8 py-4 font-semibold hover:bg-blue-700 transition"
+        >
+          Explore Colleges
+        </Link>
 
       </div>
 

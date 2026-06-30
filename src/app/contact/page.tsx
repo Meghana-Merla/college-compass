@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function ContactPage() {
   return (
     <main className="max-w-6xl mx-auto px-6 py-16">
@@ -105,7 +107,9 @@ export default function ContactPage() {
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-blue-600 py-4 font-semibold hover:bg-blue-700 transition"
+              className="w-full rounded-xl bg-gradient-to-r
+                from-blue-600
+                to-cyan-600 py-4 font-semibold hover:bg-blue-700 transition"
             >
               Send Message
             </button>
@@ -114,6 +118,24 @@ export default function ContactPage() {
 
         </div>
 
+      </div>
+
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <Link
+          href="/compare"
+          className="rounded-xl bg-gradient-to-r
+                from-blue-600
+                to-cyan-600 px-8 py-4 font-semibold hover:bg-blue-700 transition"
+        >
+          Compare Colleges
+        </Link>
+
+        <Link
+          href="/"
+          className="rounded-xl border border-white/10 px-8 py-4 font-semibold hover:bg-white/10 transition"
+        >
+          Browse Colleges
+        </Link>
       </div>
 
     </main>

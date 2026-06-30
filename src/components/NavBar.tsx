@@ -29,17 +29,19 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-xl bg-black/40 border-b border-white/10">
+    <nav className="sticky top-0 z-50 border-b border-white/10 bg-zinc-950/80 backdrop-blur-xl">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
         <Link
           href="/"
           className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent"
         >
-          🎓 College Compass
+          <span className="text-2xl font-extrabold bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+            College Compass
+          </span>
         </Link>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
 
           <Link
             href="/"
@@ -55,9 +57,20 @@ export default function Navbar() {
             Compare
           </Link>
 
-          <Link href="/about">About</Link>
-          <Link href="/contact">Contact</Link>
-          
+          <Link
+            href="/about"
+            className="hover:text-blue-400 transition"
+          >
+            About
+          </Link>
+
+          <Link
+            href="/contact"
+            className="hover:text-blue-400 transition"
+          >
+            Contact
+          </Link>
+
           {authenticated && (
             <Link
               href="/saved-colleges"
@@ -76,7 +89,9 @@ export default function Navbar() {
                   rounded-xl
                   border border-white/10
                   hover:bg-white/10
-                  transition
+                  hover:scale-105
+                  transition-all
+                  duration-300
                 "
               >
                 Login
@@ -91,7 +106,11 @@ export default function Navbar() {
                   from-blue-600
                   to-cyan-600
                   hover:opacity-90
-                  transition
+                  hover:scale-105
+                  transition-all
+                  duration-300
+                  shadow-lg
+
                 "
               >
                 Register
@@ -105,7 +124,9 @@ export default function Navbar() {
                 rounded-xl
                 bg-red-600
                 hover:bg-red-700
-                transition
+                hover:scale-105
+                transition-all
+                duration-300
               "
             >
               Logout
