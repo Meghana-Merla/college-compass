@@ -126,3 +126,48 @@ export async function GET() {
     );
   }
 }
+export async function DELETE(req: Request) {
+  try {
+    const cookieStore = await cookies();
+
+    const token = cookieStore.get("token")?.value;
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    const payload = verifyToken(token) as {
+      userId: string;
+    };
+
+    if (!payload) {
+      return NextResponse.json(
+        { error: "Invalid token" },
+        { status: 401 }
+      );
+    }
+
+    const { collegeId } = await req.json();
+
+    await prisma.savedCollege.deleteMany({
+      where: {
+        userId: payload.userId,
+        collegeId,
+      },
+    });
+
+    return NextResponse.json({
+      message: "College removed from saved list",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
+}

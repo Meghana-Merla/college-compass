@@ -4,36 +4,31 @@ import { useState } from "react";
 
 interface Props {
   collegeId: string;
+  initialSaved: boolean;
 }
 
 export default function SaveCollegeButton({
   collegeId,
+  initialSaved,
 }: Props) {
-  const [saved, setSaved] =
-    useState(false);
+  const [saved, setSaved] = useState(initialSaved);
+  const [loading, setLoading] = useState(false);
 
-  const [loading, setLoading] =
-    useState(false);
-
-  const handleSave = async () => {
+  const handleToggle = async () => {
     setLoading(true);
 
-    const res = await fetch(
-      "/api/saved-colleges",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          collegeId,
-        }),
-      }
-    );
+    const res = await fetch("/api/saved-colleges", {
+      method: saved ? "DELETE" : "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        collegeId,
+      }),
+    });
 
     if (res.ok) {
-      setSaved(true);
+      setSaved(!saved);
     }
 
     setLoading(false);
@@ -41,8 +36,8 @@ export default function SaveCollegeButton({
 
   return (
     <button
-      onClick={handleSave}
-      disabled={saved || loading}
+      onClick={handleToggle}
+      disabled={loading}
       className={`
         px-6
         py-3
@@ -52,15 +47,15 @@ export default function SaveCollegeButton({
         duration-300
         ${
           saved
-            ? "bg-green-600"
+            ? "bg-green-600 hover:bg-red-600"
             : "bg-gradient-to-r from-red-500 to-pink-500 hover:scale-105"
         }
       `}
     >
       {loading
-        ? "Saving..."
+        ? "Please wait..."
         : saved
-        ? "✅ Saved"
+        ? "🗑 Unsave College"
         : "❤️ Save College"}
     </button>
   );

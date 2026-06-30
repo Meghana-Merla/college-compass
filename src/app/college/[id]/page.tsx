@@ -66,7 +66,15 @@ export default async function CollegeDetailPage({
       currentUserId = payload.userId;
     }
   }
-
+  const isSaved =
+  currentUserId
+    ? await prisma.savedCollege.findFirst({
+        where: {
+          userId: currentUserId,
+          collegeId: college.id,
+        },
+      })
+    : null;
   const existingReview =
     college.reviews.find(
       (review) => review.user.id === currentUserId
@@ -196,7 +204,10 @@ export default async function CollegeDetailPage({
 
         <div className="flex flex-wrap gap-4 mt-8 mb-8">
 
-          <SaveCollegeButton collegeId={college.id} />
+          <SaveCollegeButton
+            collegeId={college.id}
+            initialSaved={!!isSaved}
+          />
 
           <a
             href={`https://www.google.com/maps/search/${encodeURIComponent(
