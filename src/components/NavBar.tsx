@@ -55,6 +55,9 @@ export default function Navbar() {
             Compare
           </Link>
 
+          <Link href="/about">About</Link>
+          <Link href="/contact">Contact</Link>
+          
           {authenticated && (
             <Link
               href="/saved-colleges"
