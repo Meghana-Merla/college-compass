@@ -184,12 +184,61 @@ export default async function CollegeDetailPage({
 
         </div>
 
-        <SaveCollegeButton collegeId={college.id} />
+        <div className="flex flex-wrap gap-4 mt-8 mb-8">
+
+          <SaveCollegeButton collegeId={college.id} />
+
+          <a
+            href={`https://www.google.com/maps/search/${encodeURIComponent(
+              `${college.name} ${college.city}`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              inline-flex
+              items-center
+              justify-center
+              rounded-xl
+              bg-blue-600
+              px-5
+              py-3
+              font-medium
+              text-white
+              hover:bg-blue-700
+              transition
+            "
+          >
+            📍 View on Google Maps
+          </a>
+
+          <a
+            href={`https://www.google.com/search?q=${encodeURIComponent(
+              college.name
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              inline-flex
+              items-center
+              justify-center
+              rounded-xl
+              bg-blue-600
+              px-5
+              py-3
+              font-medium
+              text-white
+              hover:bg-blue-700
+              transition
+            "
+          >
+            🔍 Search on Google
+          </a>
+
+        </div>
         <AddReviewForm
           collegeId={college.id}
           existingReview={existingReview}
-        />
-
+        />        
         <div className="mt-10">
           <h2 className="text-3xl font-bold mb-6">
             Student Reviews
