@@ -1,6 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
 
@@ -8,47 +7,48 @@ export async function POST(req: NextRequest) {
   try {
     const { college1, college2 } = await req.json();
 
-    const colleges = await prisma.college.findMany({
-      where: {
-        name: {
-          in: [college1, college2],
-        },
-      },
-      select: {
-        name: true,
-        city: true,
-        state: true,
-        fees: true,
-        rating: true,
-        nirfRank: true,
-        averagePackage: true,
-        description: true,
-      },
-    });
+    const colleges = [college1, college2];
 
-    if (colleges.length < 2) {
-      return NextResponse.json({
-        response: "Both colleges were not found in the database.",
-      });
-    }
-
-    const prompt = `
-You are an expert education counselor.
+const prompt = `
+You are an expert college counselor.
 
 Compare these two colleges.
 
 ${JSON.stringify(colleges, null, 2)}
 
-Compare them based on:
+Return the answer in Markdown using this exact format.
 
-1. Placements
-2. Fees
-3. NIRF Rank
-4. Rating
-5. Overall Recommendation
+# 🏆 AI Comparison
 
-Finally recommend which student should choose which college.
-Return the response in Markdown.
+## Quick Verdict
+(2-3 sentences)
+
+## Comparison Table
+
+| Feature | College 1 | College 2 |
+|---------|-----------|-----------|
+| NIRF Rank | | |
+| Rating | | |
+| Fees | | |
+| Average Package | | |
+
+## Pros of ${college1.name}
+- point
+- point
+- point
+
+## Pros of ${college2.name}
+- point
+- point
+- point
+
+## Final Recommendation
+
+Recommend one college with a short explanation.
+
+Keep the response under 300 words.
+Don't repeat information.
+Be concise and professional.
 `;
 
     const model = genAI.getGenerativeModel({
