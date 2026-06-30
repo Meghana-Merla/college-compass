@@ -1,6 +1,7 @@
 import CollegeList from "@/components/college/CollegeList";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import FAQ from "@/components/home/FAQ";
 
 export default async function Home() {
   const colleges = await prisma.college.findMany();
@@ -69,6 +70,7 @@ export default async function Home() {
       >
         <CollegeList colleges={colleges} />
       </section>
+      <FAQ />
     </main>
   );
 }
